@@ -8,6 +8,10 @@
     <artifactId>redis-csv-export</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <main.class>org.redis.exporter.Application</main.class>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>redis.clients</groupId>
@@ -32,6 +36,7 @@
                 <configuration>
                     <tiles>
                         <tile>org.avaje.tile:java-compile:11</tile>
+                        <tile>org.avaje.tile:lib-classpath:1.1</tile>
                     </tiles>
                 </configuration>
             </plugin>
