@@ -1,4 +1,4 @@
-`package org.redis.exporter;
+package org.redis.exporter;
 
 import org.redis.exporter.config.JedisConfig;
 import redis.clients.jedis.Jedis;
