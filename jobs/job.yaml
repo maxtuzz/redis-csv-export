@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: redis-cloud-migrator
+spec:
+  template:
+    spec:
+      containers:
+        - name: redis-cloud-migrator
+          image: maxtuzz/redis-csv-export
+          command: [
+            # TODO
+          ]
+          resources:
+            limits:
+              cpu: 1600m
+              memory: 1000Mi
+            requests:
+              cpu: 400m
+              memory: 1000Mi
+      restartPolicy: Never
+  backoffLimit: 4

@@ -14,15 +14,26 @@ import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
-        Jedis jedis = new JedisConfig("localhost:6379").getInstance();
+        String redisHost = System.getenv("REDIS_HOST");
 
+        for (String arg : args) {
+            System.out.println(arg);
+        }
+
+        if (redisHost == null) {
+            redisHost = "localhost:6379";
+        }
+
+        Jedis jedis = new JedisConfig(redisHost).getInstance();
+
+        final long startTime = System.currentTimeMillis();
+
+        System.out.println("Fetching keys ...");
         final Set<String> keys = jedis.keys("*.*");
 
         List<Map<String, String>> maps = keys.stream()
                 .map(jedis::hgetAll)
                 .collect(Collectors.toList());
-
-        maps.forEach(System.out::println);
 
         List<String> csvOutput = getCSVOutput(maps);
 
@@ -30,8 +41,6 @@ public class Application {
             if (x.split(",").length < 3) {
                 System.err.println("Not enough elements");
             }
-
-            System.out.println(x);
         });
 
         try {
@@ -39,6 +48,9 @@ public class Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        final long endTime = System.currentTimeMillis();
+        System.out.println("Total execution time: " + (endTime - startTime) + "ms");
     }
 
     /**
@@ -70,6 +82,7 @@ public class Application {
 
     /**
      * Outputs list of strings to a csv file
+     *
      * @param csvOutput list of comma separated values
      * @throws IOException directory access etc.
      */

@@ -1,6 +1,5 @@
 package org.redis.exporter.config;
 
-import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 
 public class JedisConfig {
@@ -19,7 +18,7 @@ public class JedisConfig {
             port = 6379;
         }
 
-        jedis = new Jedis(new HostAndPort(host, port));
+        jedis = new Jedis(host, port, 10000);
     }
 
     public Jedis getInstance() {
