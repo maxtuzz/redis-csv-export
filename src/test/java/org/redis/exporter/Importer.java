@@ -6,6 +6,9 @@ import redis.clients.jedis.Jedis;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Imports sample data
+ */
 public class Importer {
     public static void main(String[] args) {
         Jedis jedis = new JedisConfig("localhost:6379").getInstance();
